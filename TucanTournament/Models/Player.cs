@@ -45,6 +45,16 @@ namespace TucanTournament.Models
 		public Team Team { get; set; }
 
 		/// <summary>
+		/// Position of the player
+		/// </summary>
+		public Types.PlayerPosition Position { get; set; }
+
+		/// <summary>
+		/// Total score of the player.
+		/// </summary>
+		public int Score { get; set; }
+
+		/// <summary>
 		/// Adds player to the team.
 		/// </summary>
 		/// <param name="team"></param>
