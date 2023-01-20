@@ -17,5 +17,22 @@ namespace TucanTournament.Utils
 			Basketball, // 0
 			Handball // 1
 		}
+
+		/// <summary>
+		///  Position where player plays.
+		/// </summary>
+		public enum PlayerPosition
+		{
+			// Basketball 
+
+			Guard, // 0 
+			Forward, // 1 
+			Center, // 2
+			
+			// Handball
+			Goalkeeper, // 3
+			FieldPlayer // 4
+		}
+
 	}
 }

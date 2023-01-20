@@ -23,7 +23,7 @@ namespace TucanTournament.Models
 			Team = team;
 			AddPlayerToTeam(team);
 		}
-
+		#region Properties
 		/// <summary>
 		/// Which sport branch does player perform?
 		/// </summary>
@@ -58,5 +58,7 @@ namespace TucanTournament.Models
 			}
 			team.Players.Add(this);
 		}
+		#endregion
+
 	}
 }
