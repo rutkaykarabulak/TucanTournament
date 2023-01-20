@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Formats.Asn1.AsnWriter;
+using TucanTournament.Utils;
 
 namespace TucanTournament.Models
 {
@@ -67,6 +70,14 @@ namespace TucanTournament.Models
 		public void AddPoint ()
 		{
 			Point += 3;
+		}
+
+		/// <summary>
+		/// Adds 10 points to the each player.
+		/// </summary>
+		public void AddBonusWinnerPoint()
+		{
+			Players.ForEach(p => p.Score += Utils.Constants.BonusPoint);
 		}
 		#endregion
 	}

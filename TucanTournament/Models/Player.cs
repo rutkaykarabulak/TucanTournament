@@ -15,12 +15,14 @@ namespace TucanTournament.Models
 		public Player(Types.SportType branch,
 			string name,
 			int jerseyNumber,
-			Team team)
+			Team team,
+			int score)
 		{
 			Branch = branch;
 			Name = name;
 			JerseyNumber = jerseyNumber;
 			Team = team;
+			Score = score;
 			AddPlayerToTeam(team);
 		}
 		#region Properties
@@ -67,7 +69,9 @@ namespace TucanTournament.Models
 				throw new Exception(message);
 			}
 			team.Players.Add(this);
+			team.Point += Score;
 		}
+
 		#endregion
 
 	}

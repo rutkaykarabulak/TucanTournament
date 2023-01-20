@@ -45,6 +45,8 @@ namespace TucanTournament.Utils
 		public static readonly int HandballPlayerGoalsMadePosition = 5;
 		public static readonly int HandballPlayerGoalsReceivedPosition = 6;
 
+		public static readonly int BonusPoint = 10;
+
 
 	}
 }
