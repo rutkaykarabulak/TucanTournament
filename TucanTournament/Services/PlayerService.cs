@@ -4,7 +4,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using TucanTournament.Models;
 using TucanTournament.Utils;
+using static TucanTournament.Utils.Types;
+
 namespace TucanTournament.Services
 {
 	/// <summary>
@@ -12,57 +15,6 @@ namespace TucanTournament.Services
 	/// </summary>
 	public class PlayerService
 	{
-		/// <summary>
-		/// Calculates the total score of basketball players.
-		/// </summary>
-		/// <param name="points"></param>
-		/// <param name="rebounds"></param>
-		/// <param name="assits"></param>
-		/// <returns>Total score of player</returns>
-		public static int CalculateBasketballPlayerPoints(
-			Types.PlayerPosition position,
-			int scores,
-			int rebounds,
-			int assists)
-		{
-			switch(position)
-			{
-				case Types.PlayerPosition.Guard:
-					return (scores * 2) + (rebounds * 3) + (assists * 1);
-				case Types.PlayerPosition.Forward:
-					return (scores * 2) + (rebounds * 2) + (assists * 2);
-				case Types.PlayerPosition.Center:
-					return (scores * 2) + (rebounds * 1) + (assists * 3);
-				default:
-					return 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculates the total score of handball players.
-		/// </summary>
-		/// <param name="position"></param>
-		/// <param name="goalsMade"></param>
-		/// <param name="goalsReceived"></param>
-		/// <returns></returns>
-		public static int CalculateHandballPlayerPoints(
-			Types.PlayerPosition position,
-			int goalsMade,
-			int goalsReceived)
-		{
-			switch (position)
-			{
-				case Types.PlayerPosition.Goalkeeper:
-					return (Constants.InitialRatingPointGoalkeeper)
-						+ (goalsMade * 5) + (goalsReceived * -2);
-				case Types.PlayerPosition.FieldPlayer:
-					return (Constants.InitialRatingPointFieldPlayer)
-						+ (goalsMade * 1) + (goalsReceived * -1);
-				default:
-					return 0;
-			} 
-		}
-
 		/// <summary>
 		/// Gets a position of player by char in given text file.
 		/// </summary>
@@ -98,6 +50,51 @@ namespace TucanTournament.Services
 			}
 
 			return Types.PlayerPosition.Guard;
+		}
+
+		/// <summary>
+		/// Plays basketball games, adds players to the given teams.
+		/// </summary>
+		/// <param name="lines"></param>
+		/// <param name="branch"></param>
+		/// <param name="teamA"></param>
+		/// <param name="teamB"></param>
+		public static void PlayBasketballGame(List<string> lines, SportType branch,Team teamA, Team teamB)
+		{
+			foreach (string line in lines)
+			{
+				string[] parts = line.Split(';');
+
+				string name = parts[Constants.PlayerNamePosition];
+				int jersey = Int32.Parse(parts[Constants.PlayerJerseyPosition]);
+				Team team = parts[Constants.PlayerTeamPosition] == "Team A" ? teamA : teamB;
+				PlayerPosition position = PlayerService.GetPlayerPositionByChar(branch, parts[Constants.PlayerPosition].ToCharArray()[0]);
+				int scores = Int32.Parse(parts[Constants.BasketballPlayerScorePosition]);
+				int assists = Int32.Parse(parts[Constants.BasketballPlayerAssistPosition]);
+				int rebounds = Int32.Parse(parts[Constants.BasketballPlayerReboundPosition]);
+				int score = Basketball.CalculateBasketballPlayerPoints(position, scores, rebounds, assists);
+
+				Player player = new(branch, name, jersey, team, score);
+
+			}
+		}
+
+		public static void PlayHandballGame(List<string> lines, SportType branch, Team teamA, Team teamB)
+		{
+			foreach (string line in lines)
+			{
+				string[] parts = line.Split(';');
+
+				string name = parts[Constants.PlayerNamePosition];
+				int jersey = Int32.Parse(parts[Constants.PlayerJerseyPosition]);
+				Team team = parts[Constants.PlayerTeamPosition] == "Team A" ? teamA : teamB;
+				PlayerPosition position = PlayerService.GetPlayerPositionByChar(branch, parts[Constants.PlayerPosition].ToCharArray()[0]);
+				int goalsMade = Int32.Parse(parts[Constants.HandballPlayerGoalsMadePosition]);
+				int goalsReceived = Int32.Parse(parts[Constants.HandballPlayerGoalsReceivedPosition]);
+				int score = Handball.CalculateHandballPlayerPoints(position, goalsMade, goalsReceived);
+
+				Player player = new(branch, name, jersey, team, score);
+			}
 		}
 	}
 }

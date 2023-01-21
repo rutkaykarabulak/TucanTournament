@@ -17,7 +17,7 @@ namespace TucanTournament.Models
 		/// <summary>
 		/// Which federation does sport belong?
 		/// </summary>
-		public string? Federation { get; set; }
+		public string Federation { get; set; } = "";
 
 		/// <summary>
 		/// Id of the sport

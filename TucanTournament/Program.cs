@@ -10,11 +10,12 @@ using System.Reflection.Metadata;
 using TucanTournament.Utils;
 using TucanTournament.Services;
 
+
 List<Player> teamAPlayers = new();
 List<Player> teamBPlayers = new();
 
 // Paste your stats path to here.
-List<string> lines = File.ReadLines(@"C:\Users\rutka\source\repos\TucanTournament\Stats\stats2.txt").ToList();
+List<string> lines = File.ReadLines(@"C:\Users\rutka\source\repos\TucanTournament\Stats\stats1.txt").ToList();
 
 SportType branch = lines[0].ToLower() == "basketball" ? SportType.Basketball : SportType.Handball;
 
@@ -28,42 +29,10 @@ lines.RemoveAt(0);
 
 if (branch == SportType.Basketball)
 {
-	foreach (string line in lines)
-	{
-		string[] parts = line.Split(';');
-
-		string name = parts[Constants.PlayerNamePosition];
-		int jersey = Int32.Parse(parts[Constants.PlayerJerseyPosition]);
-		Team team = parts[PlayerTeamPosition] == "Team A" ? teamA : teamB;
-		PlayerPosition position = PlayerService.GetPlayerPositionByChar(branch, parts[Constants.PlayerPosition].ToCharArray()[0]);
-		int scores = Int32.Parse(parts[Constants.BasketballPlayerScorePosition]);
-		int assists = Int32.Parse(parts[Constants.BasketballPlayerAssistPosition]);
-		int rebounds = Int32.Parse(parts[Constants.BasketballPlayerReboundPosition]);
-		int score = PlayerService.CalculateBasketballPlayerPoints(position, scores, rebounds, assists);
-
-		Player player = new(branch, name, jersey, team, score);
-
-
-	}
+	PlayerService.PlayBasketballGame(lines, branch, teamA, teamB);
 } else if (branch == SportType.Handball)
 {
-	foreach (string line in lines)
-	{
-		string[] parts = line.Split(';');
-
-		string name = parts[Constants.PlayerNamePosition];
-		int jersey = Int32.Parse(parts[Constants.PlayerJerseyPosition]);
-		Team team = parts[PlayerTeamPosition] == "Team A" ? teamA : teamB;
-		PlayerPosition position = PlayerService.GetPlayerPositionByChar(branch, parts[Constants.PlayerPosition].ToCharArray()[0]);
-		int goalsMade = Int32.Parse(parts[Constants.HandballPlayerGoalsMadePosition]);
-		int goalsReceived = Int32.Parse(parts[Constants.HandballPlayerGoalsReceivedPosition]);
-		int score = PlayerService.CalculateHandballPlayerPoints(position, goalsMade, goalsReceived);
-
-
-		Player player = new(branch, name, jersey, team, score);
-
-
-	}
+	PlayerService.PlayHandballGame(lines, branch, teamA, teamB);
 }
 
 // If game is draw, away team is the winner! (That's my design decision)

@@ -62,7 +62,6 @@ namespace TucanTournament.Models
 		/// <param name="team"></param>
 		private void AddPlayerToTeam(Team team)
 		{
-			// ask yumit, can we do try and catch block?
 			if (Branch != team.Branch)
 			{
 				string message = "You can not add the players to the team which they are in different branches.";
