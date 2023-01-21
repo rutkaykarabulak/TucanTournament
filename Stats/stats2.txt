@@ -1,0 +1,7 @@
+HANDBALL
+player 1;James;4;Team A;G;0;20
+player 2;Jesse;8;Team A;F;15;20
+player 3;Travis;15;Team A;F;10;20
+player 4;Macron;16;Team B;G;1;25
+player 5;Gunna;23;Team B;F;12;25
+player 6;Offset;42;Team B;F;8;25
