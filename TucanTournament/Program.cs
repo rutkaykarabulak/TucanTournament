@@ -13,6 +13,7 @@ using TucanTournament.Services;
 List<Player> teamAPlayers = new();
 List<Player> teamBPlayers = new();
 
+// Paste your stats path to here.
 List<string> lines = File.ReadLines(@"C:\Users\rutka\source\repos\TucanTournament\Stats\stats2.txt").ToList();
 
 SportType branch = lines[0].ToLower() == "basketball" ? SportType.Basketball : SportType.Handball;
