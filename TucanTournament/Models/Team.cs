@@ -55,23 +55,6 @@ namespace TucanTournament.Models
 		#endregion
 
 		#region Functions 
-
-		/// <summary>
-		/// Adds a player to the team.
-		/// </summary>
-		/// <param name="player"></param>
-		public void AddPlayer (Player player) { 
-			Players.Add(player);
-		} 
-
-		/// <summary>
-		/// Adds 3 points to the team.
-		/// </summary>
-		public void AddPoint ()
-		{
-			Point += 3;
-		}
-
 		/// <summary>
 		/// Adds 10 points to the each player.
 		/// </summary>

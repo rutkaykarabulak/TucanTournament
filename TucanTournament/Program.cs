@@ -14,8 +14,18 @@ using TucanTournament.Services;
 List<Player> teamAPlayers = new();
 List<Player> teamBPlayers = new();
 
-// Paste your stats path to here.
-List<string> lines = File.ReadLines(@"C:\Users\rutka\source\repos\TucanTournament\Stats\stats1.txt").ToList();
+
+List<string> lines = new();
+try
+{
+	// Paste your stats path to here.
+	lines = File.ReadLines(@"C:\Users\rutka\source\repos\TucanTournament\Stats\stats1.txt").ToList();
+
+} catch (Exception e)
+{
+	string message = "The file extension is not supported, file is not readable. Exitting...";
+	Environment.Exit(-1);
+}
 
 SportType branch = lines[0].ToLower() == "basketball" ? SportType.Basketball : SportType.Handball;
 
